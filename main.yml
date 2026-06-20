@@ -1,0 +1,9 @@
+# Build with PyInstaller (use your actual entry script)
+ENTRY=csr_automation_toolkit.py
+OUT_NAME=csr_toolkit
+
+if [[ "${{ runner.os }}" == "Windows" || "${{ runner.os }}" == "windows-latest" ]]; then
+  pyinstaller --noconfirm --clean --onefile --name %OUT_NAME% --add-data "csr_logs.csv;." --hidden-import=tkinter --hidden-import=requests --hidden-import=gspread --hidden-import=oauth2client --hidden-import=openai %ENTRY%
+else
+  pyinstaller --noconfirm --clean --onefile --name $OUT_NAME --add-data "csr_logs.csv:." --hidden-import=tkinter --hidden-import=requests --hidden-import=gspread --hidden-import=oauth2client --hidden-import=openai $ENTRY
+fi
