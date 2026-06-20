@@ -1,0 +1,285 @@
+{
+  "_comment": "CSR Automation Toolkit response library. Edit this file directly to add, change, or remove responses — no code changes or rebuild required. Each entry: keywords (list, matched as lowercase substrings), category (for organization only), response (text returned to the agent), follow_up (true/false). Order matters: entries are checked top to bottom, first match wins, so put more specific phrases above broader ones.",
+  "responses": [
+    {
+      "id": "upsell_resolved_satisfied",
+      "category": "upsell",
+      "keywords": ["that fixed it", "that worked", "perfect thank you", "all good now", "that solved it"],
+      "response": "Glad that's sorted! While I have you — given what you're using this for, there's an option that some customers in a similar situation have found useful. Want me to give you a quick rundown, no pressure either way?",
+      "follow_up": false
+    },
+    {
+      "id": "caa",
+      "category": "closing",
+      "keywords": ["thank you", "thanks"],
+      "response": "You're welcome. It's my pleasure to help you. Is there anything else I can assist you with? Would you like me to send you an email as a reference for our discussion?",
+      "follow_up": false
+    },
+    {
+      "id": "cca",
+      "category": "greeting",
+      "keywords": ["help", "assist", "support"],
+      "response": "I'd be happy to assist you with that.",
+      "follow_up": false
+    },
+    {
+      "id": "cem1",
+      "category": "empathy",
+      "keywords": ["inconvenience", "sorry for", "apologize"],
+      "response": "I apologize for the inconvenience this issue may have caused you.",
+      "follow_up": false
+    },
+    {
+      "id": "cem2",
+      "category": "empathy",
+      "keywords": ["unhappy", "complaint", "frustrated"],
+      "response": "I am sorry to hear that, but I'll be glad to help you with this.",
+      "follow_up": false
+    },
+    {
+      "id": "esc_supervisor",
+      "category": "de-escalation",
+      "keywords": ["speak to a manager", "speak to your supervisor", "talk to a manager", "let me speak to someone else", "escalate this"],
+      "response": "Absolutely, I understand you'd like to speak with a supervisor. Let me get them looped in. Before I do, can you give me a quick summary of where things stand so I can make sure they have full context and we don't waste your time repeating everything?",
+      "follow_up": true
+    },
+    {
+      "id": "cemd",
+      "category": "empathy",
+      "keywords": ["delay", "late", "order delayed", "taking too long", "taking forever", "when will it ship"],
+      "response": "I apologize for the delay with the order. Let me address this for you.",
+      "follow_up": true
+    },
+    {
+      "id": "cmod",
+      "category": "probing",
+      "keywords": ["model number", "what model", "purchased from"],
+      "response": "To ensure I give you the right information, may I ask for the model of the equipment and where you purchased it from?",
+      "follow_up": false
+    },
+    {
+      "id": "csku",
+      "category": "probing",
+      "keywords": ["sku", "part number", "product number"],
+      "response": "May I have the SKU or model number of the unit?",
+      "follow_up": false
+    },
+    {
+      "id": "cppd",
+      "category": "probing",
+      "keywords": ["when did you buy", "purchase date", "when did i buy"],
+      "response": "When did you purchase this?",
+      "follow_up": false
+    },
+    {
+      "id": "cst",
+      "category": "probing",
+      "keywords": ["where did you buy", "where did i buy"],
+      "response": "May I ask where you purchased your unit from?",
+      "follow_up": false
+    },
+    {
+      "id": "cppo",
+      "category": "probing",
+      "keywords": ["order status", "where is my order", "track my order"],
+      "response": "To help track that down, could you provide your order or confirmation number, phone number, and zip code? Was this order placed through a store credit card, or as an employee purchase?",
+      "follow_up": true
+    },
+    {
+      "id": "cerr",
+      "category": "probing",
+      "keywords": ["error message", "error code", "what error"],
+      "response": "What error messages are you seeing on your screen?",
+      "follow_up": true
+    },
+    {
+      "id": "cppi",
+      "category": "probing",
+      "keywords": ["first time", "happened before", "started happening"],
+      "response": "Is this the first time you've noticed this issue?",
+      "follow_up": false
+    },
+    {
+      "id": "cwd",
+      "category": "de-escalation",
+      "keywords": ["warranty denied", "denied my warranty"],
+      "response": "I understand your frustration with the denial — all warranty is handled through our Authorized Service locations, and they will be your advocate for warranty needs.",
+      "follow_up": true
+    },
+    {
+      "id": "cwsh",
+      "category": "policy",
+      "keywords": ["warranty", "claim"],
+      "response": "For warranty service, if you can provide your zip code, I can help you locate an authorized service center near you. Please make sure your product is registered. All warranty discussions should be directed to the authorized service center of your choosing.",
+      "follow_up": true
+    },
+    {
+      "id": "rgacr",
+      "category": "policy",
+      "keywords": ["refund only", "no need to return", "credit request"],
+      "response": "I'd be happy to create a refund request for your order. For this refund, there's no need to return the item — you may destroy or keep it. The refund timeframe is 12-15 business days.",
+      "follow_up": true
+    },
+    {
+      "id": "crp",
+      "category": "policy",
+      "keywords": ["refund", "return policy", "want to return"],
+      "response": "We will accept returns up to 30 days after delivery for all products, provided they are in new, fully functional, undamaged condition, in the original box with packing materials, manuals, and accessories.",
+      "follow_up": true
+    },
+    {
+      "id": "cbo",
+      "category": "policy",
+      "keywords": ["backordered", "back order", "out of stock"],
+      "response": "I apologize that this item is currently out of stock. While we can't provide a definite restock date, we are monitoring it closely. You have two options: cancel the order for a refund, or keep the order active and wait for the part.",
+      "follow_up": true
+    },
+    {
+      "id": "fdp",
+      "category": "policy",
+      "keywords": ["discontinued"],
+      "response": "Upon checking, this part is discontinued with no replacement. Apologies for the inconvenience this might have caused. I'd recommend checking trusted third-party vendors to see if they still carry the part.",
+      "follow_up": true
+    },
+    {
+      "id": "chold",
+      "category": "call-handling",
+      "keywords": ["hold on", "give me a minute", "checking on"],
+      "response": "Please give me 2 minutes to check on your issue/request. I'll be right back. Thank you for your patience.",
+      "follow_up": false
+    },
+    {
+      "id": "cnr1",
+      "category": "call-handling",
+      "keywords": ["still there", "you there", "still with me"],
+      "response": "Just checking to make sure you are still with me. I don't want our chat to time out. Thank you.",
+      "follow_up": false
+    },
+    {
+      "id": "ccb",
+      "category": "call-handling",
+      "keywords": ["call back", "callback"],
+      "response": "I would like to set up a call back so we can further assist you on this issue. What is the best time and contact number we can reach you at?",
+      "follow_up": true
+    },
+    {
+      "id": "cpcv",
+      "category": "call-handling",
+      "keywords": ["switch to phone", "call instead", "phone call"],
+      "response": "Let me assist you via chat for now. I will do my best to get you that information or help you troubleshoot this issue, and if we can't reach a resolution, we can convert this into a phone call.",
+      "follow_up": false
+    },
+    {
+      "id": "cwi",
+      "category": "tooling",
+      "keywords": ["website not working", "site is down", "website issue", "website keeps", "checkout", "won't load"],
+      "response": "We are currently experiencing technical issues with our website. We are working diligently to resolve the issue. Thank you for your patience.",
+      "follow_up": false
+    },
+    {
+      "id": "ltr",
+      "category": "escalation",
+      "keywords": ["lawsuit", "lawyer", "legal action", "sue"],
+      "response": "We definitely respect your decision to file a legal complaint. We will forward this ticket to our Escalations team now. Please have your representative contact our legal team for further assistance.",
+      "follow_up": true
+    },
+    {
+      "id": "ods",
+      "category": "tooling",
+      "keywords": ["system down", "tools are down", "can't place order"],
+      "response": "I'm sorry for the inconvenience. We're currently having maintenance issues with our internal tools. At this time we can't place orders or look up part information. I can send you an email with the info once our system is back up.",
+      "follow_up": true
+    },
+    {
+      "id": "esc_repeated_contact",
+      "category": "de-escalation",
+      "keywords": ["i've already called", "i already explained", "i've contacted you before", "this is the third time", "spoken to someone else already"],
+      "response": "I'm sorry you've had to reach out more than once about this — that shouldn't happen, and I want to make sure it gets resolved this time. Let me pull up the history on this so you don't have to repeat everything from the start.",
+      "follow_up": true
+    },
+    {
+      "id": "esc_cancel_account",
+      "category": "de-escalation",
+      "keywords": ["cancel my account", "cancel my subscription", "i'm done", "switching to a competitor", "close my account"],
+      "response": "I hear you, and I don't want you to leave if there's something we can do to make this right. Can you walk me through what's been frustrating so I can see what options are available before we go down the cancellation path?",
+      "follow_up": true
+    },
+    {
+      "id": "esc_general_anger",
+      "category": "de-escalation",
+      "keywords": ["this is ridiculous", "unacceptable", "worst service", "absolutely furious", "i am so angry"],
+      "response": "I completely understand the frustration, and I'm sorry you're dealing with this. I'm going to stay with you and make this right — can you walk me through exactly what happened so I have the full picture?",
+      "follow_up": true
+    },
+    {
+      "id": "pol_data_privacy",
+      "category": "policy",
+      "keywords": ["my data", "delete my information", "data privacy", "gdpr", "what do you do with my information"],
+      "response": "I understand the concern — your data privacy matters to us. I can walk you through what information we collect, how it's used, and your options for accessing or removing it. Could you tell me specifically what you'd like to know or have changed?",
+      "follow_up": true
+    },
+    {
+      "id": "pol_billing_dispute",
+      "category": "policy",
+      "keywords": ["wrong charge", "overcharged", "billed incorrectly", "dispute this charge", "charged twice"],
+      "response": "I'm sorry for the confusion on the charge — let's get this corrected. Could you confirm the date and amount of the charge in question so I can look into exactly what happened and get it resolved?",
+      "follow_up": true
+    },
+    {
+      "id": "pol_account_access",
+      "category": "policy",
+      "keywords": ["can't log in", "locked out", "forgot my password", "reset my password", "account locked"],
+      "response": "Let's get you back in. For security, I'll need to verify a couple of details on the account before I can help with access — could you confirm the email or username on file?",
+      "follow_up": true
+    },
+    {
+      "id": "pol_sla_response_time",
+      "category": "policy",
+      "keywords": ["how long will this take", "what's your response time", "sla", "turnaround time"],
+      "response": "Good question — for this type of request, our standard turnaround is typically within 1-2 business days, though some cases may take longer depending on complexity. I'll keep you updated on progress along the way.",
+      "follow_up": false
+    },
+    {
+      "id": "upsell_general_interest",
+      "category": "upsell",
+      "keywords": ["is there anything better", "what else do you offer", "is there an upgrade", "what other plans"],
+      "response": "Glad you asked — based on what you've described, there may be an option that fits even better. Would you like me to walk you through what's available, so you can see if it makes sense for your situation?",
+      "follow_up": false
+    },
+    {
+      "id": "upsell_outgrowing_plan",
+      "category": "upsell",
+      "keywords": ["hitting my limit", "running out of", "keep maxing out", "need more capacity", "exceeded my plan"],
+      "response": "That's a good sign you're getting real use out of it. It also means the current plan may not be the best fit anymore — would it help if I outlined what the next tier up includes, so you can compare?",
+      "follow_up": true
+    },
+    {
+      "id": "common_business_hours",
+      "category": "general",
+      "keywords": ["what are your hours", "when are you open", "business hours", "what time do you close"],
+      "response": "Happy to share that — could you confirm your region or time zone so I can give you accurate hours for your location?",
+      "follow_up": false
+    },
+    {
+      "id": "common_pricing",
+      "category": "general",
+      "keywords": ["how much does it cost", "what's the price", "pricing", "how much do you charge"],
+      "response": "I can help with pricing details. Could you tell me a bit more about what you're looking for, so I can point you to the option that fits best?",
+      "follow_up": false
+    },
+    {
+      "id": "common_feature_request",
+      "category": "general",
+      "keywords": ["you should add", "it would be great if", "feature request", "can you build", "wish it had"],
+      "response": "Thanks for the suggestion — feedback like this genuinely helps shape what we build next. I'll make sure this gets logged and passed along to the right team.",
+      "follow_up": true
+    },
+    {
+      "id": "common_documentation",
+      "category": "general",
+      "keywords": ["where can i find docs", "documentation", "user guide", "instructions for", "how do i set up"],
+      "response": "I can point you to the right resource for that. Could you let me know specifically what you're trying to set up or accomplish, so I send you the most relevant guide?",
+      "follow_up": false
+    }
+  ]
+}
