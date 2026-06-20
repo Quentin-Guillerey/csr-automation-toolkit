@@ -1,0 +1,114 @@
+name: Build PyInstaller artifacts
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-13]
+        python: ['3.10']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show repo root (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          echo "CWD: $(pwd)"
+          echo "Files:"
+          ls -la
+
+      - name: Show repo root (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Write-Output "CWD: $(Get-Location)"
+          Write-Output "Files:"
+          Get-ChildItem -Force
+
+      - name: Ensure csr_logs.csv exists (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          if [ ! -f csr_logs.csv ]; then
+            echo "Timestamp,Customer Email,Query,Response,Follow-Up Needed,Status,Assigned To,Resolution Notes" > csr_logs.csv
+            echo "Created csr_logs.csv"
+          else
+            echo "csr_logs.csv already exists"
+          fi
+
+      - name: Ensure csr_logs.csv exists (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          if (-not (Test-Path csr_logs.csv)) {
+            "Timestamp,Customer Email,Query,Response,Follow-Up Needed,Status,Assigned To,Resolution Notes" | Out-File -FilePath csr_logs.csv -Encoding UTF8
+            Write-Output "Created csr_logs.csv"
+          } else {
+            Write-Output "csr_logs.csv already exists"
+          }
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install build deps
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r requirements.txt pyinstaller
+
+      - name: Build with PyInstaller (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          ENTRY=csr_automation_toolkit.py
+          OUT_NAME=csr_toolkit
+          pyinstaller --noconfirm --clean --onefile --name $OUT_NAME \
+            --add-data "csr_logs.csv:." \
+            --hidden-import=tkinter --hidden-import=requests \
+            --hidden-import=gspread --hidden-import=oauth2client \
+            --hidden-import=openai "$ENTRY"
+
+      - name: Build with PyInstaller (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          ENTRY=csr_automation_toolkit.py
+          OUT_NAME=csr_toolkit
+          pyinstaller --noconfirm --clean --onefile --name $OUT_NAME \
+            --add-data "csr_logs.csv;." \
+            --hidden-import=tkinter --hidden-import=requests \
+            --hidden-import=gspread --hidden-import=oauth2client \
+            --hidden-import=openai "$ENTRY"
+
+      - name: List dist (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          echo "Dist contents:"
+          ls -la dist || true
+
+      - name: List dist (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Write-Output "Dist contents:"
+          if (Test-Path dist) { Get-ChildItem dist -Force } else { Write-Output "dist directory not found" }
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: csr-${{ matrix.os }}
+          path: dist/**
