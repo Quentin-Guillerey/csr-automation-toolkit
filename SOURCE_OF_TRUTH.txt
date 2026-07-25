@@ -1,0 +1,27 @@
+NOTE FOR THIS PROJECT: SOURCE OF TRUTH
+========================================
+
+The live, current version of every file lives on GitHub:
+
+https://github.com/Quentin-Guillerey/csr-automation-toolkit
+
+Any copies of the following files attached to this project are reference
+snapshots, not the canonical version:
+
+- csr_automation_toolkit.py
+- README.md
+- CSR_Automation_Project_Summary.pdf
+- PACKAGING.md
+- csr_automation_toolkit.spec
+- requirements.txt
+- env.example
+
+If there's ever a conflict between what's attached here and what's on
+GitHub, GitHub wins. Pull fresh from there before making changes,
+especially if picking this up after a gap in time.
+
+WORKFLOW FOR UPDATES:
+1. Edit here (or locally)
+2. Verify the change works
+3. Push to GitHub
+4. Replace the snapshot in this project so it doesn't go stale again
