@@ -12,16 +12,8 @@ generic prototype, ready to be paired with the sanitized CSR query library
 (see the "Generic CSR Knowledge Base" project) for any customer service
 team to adapt, not just one originally built around a specific product line.
 
-- **CSV logging is the primary, always-on audit trail** — no setup
+- **CSV logging is now the primary, always-on audit trail** — no setup
   required, works immediately. Stored at `%APPDATA%\CSRToolkit\csr_logs.csv`.
-- **Responses live in `responses.json`, not in code.** The build bundles
-  it as the default; on each user's first run it's copied to
-  `%APPDATA%\CSRToolkit\responses.json` as their editable copy. Teammates
-  (or you) can edit that file in any text editor and click "Reload
-  Responses" in the app — no rebuild, no redistribution.
-- **Errors are visible.** The packaged app has no console, so failures
-  (Slack, Sheets, AI fallback, bad responses.json entries) are written to
-  `%APPDATA%\CSRToolkit\csr_errors.log` and surfaced in the status bar.
 - **Google Sheets, Slack, and OpenAI are all optional** — configure any/all
   of them via the in-app "Settings" screen, or skip entirely and the
   toolkit still works fully offline with keyword matching + CSV logging.
@@ -39,20 +31,25 @@ team to adapt, not just one originally built around a specific product line.
    not for teammates running the final .exe):
    https://www.python.org/downloads/
 
-2. Install dependencies — including the optional ones. PyInstaller can
-   only bundle what's installed, so a build machine missing `openai` or
-   `gspread` produces an .exe permanently missing those features:
+2. Install dependencies:
    ```
    pip install -r requirements.txt
    pip install pyinstaller
    ```
 
+3. Confirm `requirements.txt` no longer needs `python-dotenv` (the .env
+   dependency was replaced by the config screen) — remove that line if
+   it's still listed.
+
 ## Build
 
-From a folder containing all three of:
-- `csr_automation_toolkit.py`
-- `csr_automation_toolkit.spec`
-- `responses.json`  ← required; the spec bundles it into the .exe
+From the folder containing `csr_automation_toolkit.py` and
+`csr_automation_toolkit.spec`:
+
+> **Note:** if you pulled `csr_automation_toolkit.spec` from the project as
+> `csr_automation_toolkit_spec.txt` (renamed for mobile upload compatibility),
+> rename it back to `csr_automation_toolkit.spec` before running the command
+> below — the content is identical, only the extension was changed.
 
 ```
 pyinstaller csr_automation_toolkit.spec
@@ -76,10 +73,9 @@ on a teammate's machine.
    with keyword matching and local CSV logging, no credentials needed at
    all. Or they can enter their own Slack/Sheets/OpenAI details for the
    extra features. Either way, "Save and Continue" / "Skip" gets them into
-   the main app — and the choice sticks; the setup screen won't reappear.
+   the main app.
 4. Done — no further setup needed on subsequent launches. They can revisit
-   "Settings" any time to add or change credentials, and edit
-   `%APPDATA%\CSRToolkit\responses.json` any time to change responses.
+   "Settings" any time to add or change credentials.
 
 ## Before wide rollout, check with FPS IT
 
@@ -87,8 +83,7 @@ on a teammate's machine.
   publisher? (Likely yes, first run — Windows will show a "Windows
   protected your PC" warning that needs "More info" → "Run anyway."
   Code-signing avoids this but costs money and isn't necessary for an
-  internal pilot tool. UPX compression is disabled in the spec to reduce
-  false positives.)
+  internal pilot tool.)
 - Do teammates have permission to run unsigned executables on their
   machines, or is that locked down by IT policy?
 - Where should the canonical .exe live for updates — shared drive,
@@ -96,14 +91,40 @@ on a teammate's machine.
 
 ## Updating the toolkit later
 
-**Response changes need no rebuild at all** — edit
-`%APPDATA%\CSRToolkit\responses.json` on the teammate's machine (or
-distribute an updated file to that location) and click "Reload Responses."
-
-For code changes to `csr_automation_toolkit.py`, rerun:
+Any time you change `csr_automation_toolkit.py`, rerun:
 ```
 pyinstaller csr_automation_toolkit.spec
 ```
 and redistribute the new `.exe`. Teammates' saved credentials in
-`%APPDATA%\CSRToolkit\config.json` and their edited `responses.json` are
-untouched by updates — nothing needs re-entering.
+`%APPDATA%\CSRToolkit\config.json` are untouched by this — they won't
+need to re-enter anything after an update.
+
+## Distributing responses.json with the .exe
+
+The response library is NOT bundled inside the executable. Distribute
+`CSR_Automation_Toolkit.exe` and `responses.json` together — same folder.
+
+On first launch, the app copies `responses.json` into the user's config
+folder (`%APPDATA%\CSRToolkit\responses.json`) and loads from there ever
+after. Teammates edit that per-user copy and click "Reload Responses" to
+apply changes — no rebuild, no restart, no redistribution.
+
+Consequence for updates: rebuilding the .exe does not update anyone's
+response library, and shipping a new responses.json next to the .exe only
+affects fresh installs. To push library changes to an existing user, they
+replace their `%APPDATA%\CSRToolkit\responses.json` (or delete it and
+relaunch to re-seed from the copy next to the .exe).
+
+If the config folder is ever deleted by accident, no harm done: relaunching
+the app recreates it and re-seeds responses.json automatically. Only the
+local CSV audit log is lost.
+
+## Validation loop (current version)
+
+"Generate Response" and "Send & Log" are two separate steps. Generate
+classifies the query and fills an editable response box; nothing is logged
+or alerted until the agent clicks Send & Log. The CSV audit log records
+both the suggested response and the final (possibly edited) response, plus
+an auto-computed "Was Edited" flag and the matched category — this is the
+core pilot data for identifying weak classifier entries and response copy
+that agents rewrite.
