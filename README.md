@@ -8,7 +8,7 @@ Built by [Quentin Guillerey](https://linkedin.com/in/quentin-guillerey) — Cust
 
 ## The problem
 
-I was running U.S. operations for the World Leader in Robotic Mowing handling 3,000+ customer contacts per month. The team had no standardized response system, no audit trail, and no way to flag and route follow-up tasks automatically. Agents spent most of their time on manual triage and copy-paste work. No one was going to build the solution. So I started building one.
+I was running U.S. operations for the World Leader in Robotic Mowing, handling 3,000+ customer contacts per month. The team had no standardized response system, no audit trail, and no way to flag and route follow-up tasks automatically. Agents spent most of their time on manual triage and copy-paste work. No one was going to build the solution. So I started building one.
 
 ---
 
