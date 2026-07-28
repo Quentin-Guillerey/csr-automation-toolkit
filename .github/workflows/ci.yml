@@ -55,7 +55,7 @@ jobs:
           Get-ChildItem dist -Force
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: CSR_Automation_Toolkit-windows
           path: dist/**
