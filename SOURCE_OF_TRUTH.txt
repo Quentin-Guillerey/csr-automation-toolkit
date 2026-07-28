@@ -10,11 +10,12 @@ snapshots, not the canonical version:
 
 - csr_automation_toolkit.py
 - README.md
-- CSR_Automation_Project_Summary.pdf
 - PACKAGING.md
 - csr_automation_toolkit.spec
 - requirements.txt
-- env.example
+- requirements-dev.txt
+- responses.json
+- tests/test_toolkit.py
 
 If there's ever a conflict between what's attached here and what's on
 GitHub, GitHub wins. Pull fresh from there before making changes,
@@ -22,6 +23,13 @@ especially if picking this up after a gap in time.
 
 WORKFLOW FOR UPDATES:
 1. Edit here (or locally)
-2. Verify the change works
-3. Push to GitHub
-4. Replace the snapshot in this project so it doesn't go stale again
+2. Run the test suite: pytest -q
+3. Verify the change works in the GUI
+4. Push to GitHub
+5. Replace the snapshot in this project so it doesn't go stale again
+
+RULE ON CLAIMS:
+The README is the only description of this project that ships. If a claim
+is not enforced by a test or plainly visible in the code, it does not go in
+the README. Do not commit a separate summary document that can drift out of
+sync with the code.
